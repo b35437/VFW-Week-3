@@ -26,7 +26,11 @@
 			<img src="img/ashield-small.png" alt="Equipment List">
 			<h1>dd Equipment</h1>
 		</div>
-		<a href="#" id="cleardata">Clear Stored Data</a>&nbsp | &nbsp<a href="#" id="showdata">Display Data</a>&nbsp<a href="addItem.html" id="additem" style="display:none;">Add New Item</a>
+		<nav>
+		<a href="#" id="cleardata">Clear Stored Data</a>&nbsp; | &nbsp;
+		<a href="#" id="showdata">Display Data</a>
+		<a href="addItem.html" id="additem" style="display:none;">Add New Item</a>
+		</nav>
 		<!--Add Form-->
 		<form action="#" method="post" id="equipmentForm">
 			<fieldset id="equipmentInfoFieldSet">
@@ -55,10 +59,10 @@
 					<!-- TEXT AREA -->
 					<li><label for="note">Additional Notes:</label>
 					<textarea id="note"></textarea></li>
-					<!--<li><input type="hidden" value="true" /></li>  HIDDEN INPUT -->
+					<li><input type="hidden" value="true" /></li>  <!-- HIDDEN INPUT -->
 				</ul>
 			</fieldset>
-			<input type="button" value="Add the item!" id="saveBtn" /> <!-- SUBMIT BUTTON -->			
+			<input type="submit" value="Add the item!" id="saveBtn" /> <!-- SUBMIT BUTTON -->			
 		</form>
 		<!-- JavaScript -->
 		<script type="text/javascript" src="js/additem-script.js"></script>

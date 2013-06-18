@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 		if(byId("saveto").checked) {
 			saveGearValue = byId("saveto").value;
 		} else {
-			saveGearValue = "Not saved to your list"
+			saveGearValue = "No"
 		}
 	}
 	
@@ -80,7 +80,7 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 		}
 	}
 	
-	function validate(){
+	function validate(b){
 		//define elements we want to check
 		var getEname = byId("ename");//equipment name
 		var getIlist = byId("ilist");//item slot
@@ -100,14 +100,14 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 			getEname.style.border = "1px solid red";
 			errorArray.push(enameError);
 		}
-		/*
+		
 		//item slot validation
 		if(getIlist.value === "--Select A Slot--") {
 			var ilistError = "* Please choose an item slot.";
 			getIlist.style.border = "1px solid red";
 			errorArray.push(ilistError);
 		}
-		*/
+		
 		//if any errors print to screen
 		if(errorArray.length >= 1) {
 			for(var i=0, j=errorArray.length; i < j; i++) {
@@ -115,6 +115,8 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 				errorText.innerHTML = errorArray[i];
 				errorMessage.appendChild(errorText);
 			}
+			b.preventDefault();
+			return false;
 		}else {
 			//if there are no errors 
 			//save the data
