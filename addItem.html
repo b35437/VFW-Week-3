@@ -46,19 +46,19 @@
 						<input type="radio" value="Epic" id="epic" name="rarity" /><label for="epic">Epic</label>
 					</div>
 					<!-- SLIDER -->
-					<li><label for="lvlslider">Item Level:</label>
-					<input type="range" min="1" max="60" value="1" step="1" name="lvlslider" id="islide" /></li>
+					<li><label for="islide">Item Level:</label>
+					<input type="range" min="1" max="60" value="1" step="1" id="islide" /></li>
 					<!-- DATE SELECTION BOX -->
-					<li><label for="dateadded">Date Added:</label><input type="date" id="date" /></li>
+					<li><label for="date">Date Added:</label><input type="date" id="date" /></li>
 					<!-- CHECKBOX -->
-					<oi><input type="checkbox" id="savegear" />&nbsp<label for="savegear">Save to your item list?</label></oi>
+					<oi><input type="checkbox" id="saveto" />&nbsp<label for="saveto">Save to your item list?</label></oi>
 					<!-- TEXT AREA -->
 					<li><label for="note">Additional Notes:</label>
 					<textarea id="note"></textarea></li>
-					<li><input type="hidden" value="true" /></li> <!-- HIDDEN INPUT -->
+					<!--<li><input type="hidden" value="true" /></li>  HIDDEN INPUT -->
 				</ul>
 			</fieldset>
-			<input type="button" value="Add the item!" id="button" /> <!-- SUBMIT BUTTON -->			
+			<input type="button" value="Add the item!" id="saveBtn" /> <!-- SUBMIT BUTTON -->			
 		</form>
 		<!-- JavaScript -->
 		<script type="text/javascript" src="js/additem-script.js"></script>

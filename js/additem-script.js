@@ -4,7 +4,7 @@
 
 
 //wait until the DOM has loaded
-window.addEventListener("DOMContentLoaded", function() { 
+window.addEventListener("DOMContentLoaded", function Elist() { 
 
 
 	//getElementById Function
@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", function() {
 		//for loop to run through the itemSlot array
 		for(var i=0, j=itemSlot.length; i<j; i++) {
 			//local variables
-			var createOption = document.createElement('option');
+			var createOption = document.createElement("option");
 			var optText = itemSlot[i];
 			
 			createOption.setAttribute("value", optText);
@@ -52,8 +52,8 @@ window.addEventListener("DOMContentLoaded", function() {
 	//get the value of the checkbox
 	function getCheckboxValue() {
 		//if conditional if the checkbox is checked or not
-		if(byId("savegear").checked) {
-			saveGearValue = byId('savegear').value;
+		if(byId("saveto").checked) {
+			saveGearValue = byId("saveto").value;
 		} else {
 			saveGearValue = "Not saved to your list"
 		}
@@ -63,20 +63,62 @@ window.addEventListener("DOMContentLoaded", function() {
 	function newDisplay(t) {
 		switch(t){
 			case "on":
-			byId("equipmentForm").style.display = "none";
-			byId("cleardata").style.display = "inline";
-			byId("showdata").style.display = "none";
-			byId("additem").style.display = "inline";
+				byId("equipmentForm").style.display = "none";
+				byId("cleardata").style.display = "inline";
+				byId("showdata").style.display = "none";
+				byId("additem").style.display = "inline";
 				break;
 			case "off":
-			byId("equipmentForm").style.display = "block";
-			byId("cleardata").style.display = "inline";
-			byId("showdata").style.display = "inline";
-			byId("additem").style.display = "none";
-			byId("items").style.display = "none";
+				byId("equipmentForm").style.display = "block";
+				byId("cleardata").style.display = "inline";
+				byId("showdata").style.display = "inline";
+				byId("additem").style.display = "none";
+				byId("items").style.display = "none";
 				break;
 			default:
 				return false;
+		}
+	}
+	
+	function validate(){
+		//define elements we want to check
+		var getEname = byId("ename");//equipment name
+		var getIlist = byId("ilist");//item slot
+		
+		//error message clear
+		errorMessage.innerHTML = "";
+		getEname.style.border = "1px solid black";
+		getIlist.style.border = "1px solid black";
+		
+		
+		//get error message
+		var errorArray = [];
+		
+		//equipment name validation
+		if(getEname.value === ""){
+			var enameError = "* Please enter the equipment name.";
+			getEname.style.border = "1px solid red";
+			errorArray.push(enameError);
+		}
+		/*
+		//item slot validation
+		if(getIlist.value === "--Select A Slot--") {
+			var ilistError = "* Please choose an item slot.";
+			getIlist.style.border = "1px solid red";
+			errorArray.push(ilistError);
+		}
+		*/
+		//if any errors print to screen
+		if(errorArray.length >= 1) {
+			for(var i=0, j=errorArray.length; i < j; i++) {
+				var errorText = document.createElement("li");
+				errorText.innerHTML = errorArray[i];
+				errorMessage.appendChild(errorText);
+			}
+		}else {
+			//if there are no errors 
+			//save the data
+			saveData(this.key);
 		}
 	}
 	
@@ -89,7 +131,7 @@ window.addEventListener("DOMContentLoaded", function() {
 		//set the id to the existing key were editing so that it will save over the data
 		//the key is the same key thats been passed alon fron the edit buttin even handler
 		//to the validate funtion, and then pass here into the store data function.
-			id = key;
+			randomID = key;
 		}
 		
 		getSelectedRadio(); //calls the radio function
@@ -97,13 +139,13 @@ window.addEventListener("DOMContentLoaded", function() {
 		
 		//get form information and store within an object
 		var equipment = {};
-			equipment.ename = ["Equipment Name:", byId("ename").value];
-			equipment.ilist = ["Item Slot:", byId("ilist").value];
+			equipment.equipmentName = ["Equipment Name:", byId("ename").value];
+			equipment.itemList = ["Item Slot:", byId("ilist").value];
 			equipment.rarity = ["Rarity:", rareValue];
-			equipment.islide = ["Item Level:", byId("islide").value];
+			equipment.levelSlide = ["Item Level:", byId("islide").value];
 			equipment.date = ["Date:", byId("date").value];
 			equipment.savegear = ["Save to List:", saveGearValue];
-			equipment.note = ["Notes:", byId("note").value];
+			equipment.addNote = ["Notes:", byId("note").value];
 			
 			//convert object to string
 			localStorage.setItem(randomID, JSON.stringify(equipment));
@@ -133,7 +175,7 @@ window.addEventListener("DOMContentLoaded", function() {
 		byId("items").style.display = "block";	
 		
 		//for loop create the external ul/li tags for the data within localstorage
-		for(var i = 0, l = localStorage.length; i < l; i++){
+		for(var i = 0, ls = localStorage.length; i < ls; i++){
 			var createListItem = document.createElement("li");
 			var linksLi = document.createElement("li");
 			createList.appendChild(createListItem);
@@ -149,11 +191,11 @@ window.addEventListener("DOMContentLoaded", function() {
 			
 			//in loop also creates the li tages for the actual data within localstorage
 			for(var y in objectString) {
-				var createSubListItem = document.createElement("li");
-				createSubList.appendChild(createSubListItem);
-				var optSubText = objectString[y][0]+" "+objectString[y][1];
+				var createSubLi = document.createElement("li");
+				createSubList.appendChild(createSubLi);
+				var optSubText = objectString[y][0] + " " + objectString[y][1];
 				
-				createSubListItem.innerHTML = optSubText;
+				createSubLi.innerHTML = optSubText;
 				createSubList.appendChild(linksLi);
 				
 				}
@@ -167,29 +209,21 @@ window.addEventListener("DOMContentLoaded", function() {
 		//Edit Link
 		var editLink = document.createElement("a");
 		editLink.href = "#";
-		
 		editLink.key = key;
-		
 		var editText = "Edit Equipment";
-		
 		editLink.addEventListener("click", editItem);
 		editLink.innerHTML = editText;
-		linksLi.appendChild(editLink);
-		
+		linksLi.appendChild(editLink);	
 		
 		//line break
 		var breakTag = document.createElement("br");
 		linksLi.appendChild(breakTag);
 		
-		
 		//delete Link
 		var deleteLink = document.createElement("a");
 		deleteLink.href = "#";
-		
 		deleteLink.key = key;
-		
 		var deleteText = "Delete Equipment";
-		
 		deleteLink.addEventListener("click", deleteItem);
 		deleteLink.innerHTML = deleteText;
 		linksLi.appendChild(deleteLink);
@@ -204,37 +238,38 @@ window.addEventListener("DOMContentLoaded", function() {
 		newDisplay("off");
 		
 		//populate the form fields with current local storage
-		byId("ename").value = equipment.ename[1];
-		byId("ilist").value = equipment.ilist[1];
-		var rarityRadio = document.forms[0].rarity;
-		for(var i = 0; i < rarityRadio.length; i++){
-			if(rarityRadio[i].value == "Common" && equipment.rarity[1] == "Common") {
-				rarityRadio[i].setAttribute("checked", "checked");
-			}else if(rarityRadio[i].value == "Uncommon" && equipment.rarity[1] == "Uncommon") {
-				rarityRadio[i].setAttribute("checked", "checked");
-			}else if(rarityRadio[i].value == "Rare" && equipment.rarity[1] == "Rare") {
-				rarityRadio[i].setAttribute("checked", "checked");
-			}else if (rarityRadio[i].value == "Epic" && equipment.rarity[1] == "Epic"){
-				rarityRadio[i].setAttribute("checked", "checked");
+		byId("ename").value = equipment.equipmentName[1];
+		byId("ilist").value = equipment.itemList[1];
+		var radioBtn = document.forms[0].rarity;
+		for(var i = 0; i < radioBtn.length; i++){
+			if(radioBtn[i].value == "Common" && equipment.rarity[1] == "Common") {
+				radioBtn[i].setAttribute("checked", "checked");
+			}else if(radioBtn[i].value == "Uncommon" && equipment.rarity[1] == "Uncommon") {
+				radioBtn[i].setAttribute("checked", "checked");
+			}else if(radioBtn[i].value == "Rare" && equipment.rarity[1] == "Rare") {
+				radioBtn[i].setAttribute("checked", "checked");
+			}else if (radioBtn[i].value == "Epic" && equipment.rarity[1] == "Epic"){
+				radioBtn[i].setAttribute("checked", "checked");
 			}
 		}
-		byId("islide").value = equipment.islide[1];
+		byId("islide").value = equipment.levelSlide[1];
 		byId("date").value = equipment.date[1];
 		
 		if (equipment.savegear[1] == "Yes") {
-			byId("savegear").setAttribute("checked", "checked");
+			byId("saveto").setAttribute("checked", "checked");
 		}
-		byId("note").value = equipment.note[1];
+		byId("note").value = equipment.addNote[1];
 		
 		//remove the initial listener from the input 'save contact' button
 		save.removeEventListener("click", saveData);
 		//change submit button
-		byId("button").value = "Edit Equipment";
-		var editButton = byId("button");
+		byId("saveBtn").value = "Edit Equipment";
+		var editButton = byId("saveBtn");
 		//save the key value established in this function as a property of the editbutton event
 		//so we can use that value when we save the data we edited
 		editButton.addEventListener("click", validate);
 		editButton.key = this.key;
+
 	}
 	
 	function deleteItem() {
@@ -264,49 +299,6 @@ window.addEventListener("DOMContentLoaded", function() {
 		}
 	}
 	
-	function validate(){
-		//define elements we want to check
-		var getEname = byId("ename");//equipment name
-		var getIlist = byId("ilist");//item slot
-		
-		//error message clear
-		errorMessage.innerHTML = "";
-		getEname.style.border = "1px solid black";
-		getIlist.style.border = "1px solid black";
-		
-		
-		//get error message
-		var errorArray = [];
-		
-		//equipment name validation
-		if(getEname.value === ""){
-			var enameError = "* Please enter the equipment name.";
-			getEname.style.border = "1px solid red";
-			errorArray.push(enameError);
-		}
-		
-		//item slot validation
-		if(getIlist.value === "--Select A Slot--") {
-			var ilistError = "* Please choose an item slot.";
-			getIlist.style.border = "1px solid red";
-			errorArray.push(ilistError);
-		}
-		
-		//if any errors print to screen
-		if(errorArray.length >= 1) {
-			for(var i=0, j=errorArray.length; i < j; i++) {
-				var errorText = document.createElement("li");
-				errorText.innerHTML = errorArray[i];
-				errorMessage.appendChild(errorText);
-			}
-		}else {
-			//if there are no errors 
-			//save the data
-			saveData(this.key);
-		}
-		window.location.reload();
-	}
-	
 	
 	//global variables
 	var itemSlot = ["--Select A Slot--", "Belt", "Chest", "Feet", "Gloves", "Helmet", "Pants", "Shoulders", "Back", "Main Hand", "Off Hand", "Two Handed", "Neck", "Left Ring", "Right Ring"];
@@ -327,10 +319,8 @@ window.addEventListener("DOMContentLoaded", function() {
 	removeDataLink.addEventListener("click", clearLocalStorage);
 	
 	//save event
-	var save = byId("button");
+	var save = byId("saveBtn");
 	save.addEventListener("click", validate);
 
-
-	
 });//End of window Listener
 
