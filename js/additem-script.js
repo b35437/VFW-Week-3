@@ -59,8 +59,6 @@ window.addEventListener("DOMContentLoaded", function() {
 		}
 	}
 	
- 
-	
 	//alter CSS within JS by changing atributes.
 	function newDisplay(t) {
 		switch(t){
@@ -306,7 +304,9 @@ window.addEventListener("DOMContentLoaded", function() {
 			//save the data
 			saveData(this.key);
 		}
+		window.location.reload();
 	}
+	
 	
 	//global variables
 	var itemSlot = ["--Select A Slot--", "Belt", "Chest", "Feet", "Gloves", "Helmet", "Pants", "Shoulders", "Back", "Main Hand", "Off Hand", "Two Handed", "Neck", "Left Ring", "Right Ring"];
@@ -328,7 +328,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	
 	//save event
 	var save = byId("button");
-	save.addEventListener("click", saveData);
+	save.addEventListener("click", validate);
 
 
 	
