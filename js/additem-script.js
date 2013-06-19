@@ -212,7 +212,9 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 		var editLink = document.createElement("a");
 		editLink.href = "#";
 		editLink.key = key;
+		
 		var editText = "Edit Equipment";
+		
 		editLink.addEventListener("click", editItem);
 		editLink.innerHTML = editText;
 		linksLi.appendChild(editLink);	
@@ -225,7 +227,9 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 		var deleteLink = document.createElement("a");
 		deleteLink.href = "#";
 		deleteLink.key = key;
+		
 		var deleteText = "Delete Equipment";
+		
 		deleteLink.addEventListener("click", deleteItem);
 		deleteLink.innerHTML = deleteText;
 		linksLi.appendChild(deleteLink);
@@ -273,7 +277,7 @@ window.addEventListener("DOMContentLoaded", function Elist() {
 		editButton.key = this.key;
 
 	}
-	
+	//delete individual item
 	function deleteItem() {
 		var verify = confirm("are you sure you want to delete this equipment");
 		if(verify){
